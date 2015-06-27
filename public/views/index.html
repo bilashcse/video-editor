@@ -1,0 +1,156 @@
+
+<div ng-controller="homeCntrl">
+
+	<div id="business_profile" ng-show="global.user.user_type!='admin'">
+
+		<div class="passcode" ng-show="!global.user.password && !global.user.facebook">
+			<div class="panel-body">
+                <form role="form" method="POST" ng-submit="setPassword()">
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <input type="password" ng-model="password" id="password" class="form-control input-sm" placeholder="Password" required />
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <input type="password" ng-model="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="Confirm Password" required />
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+
+                            <div ng-show="!password_match" style="font-size: 13px;" class="alert alert-danger" role="alert">Please Confirm Your Password Correctly</div>
+                            <div ng-show="!password_condition_length" style="font-size: 13px;" class="alert alert-danger" role="alert">Your Password Length Should At Least 6</div>
+                            <div ng-show="!password_condition_number" style="font-size: 13px;" class="alert alert-danger" role="alert">Your Password Should Have At Least 1 Number</div>
+                            <div ng-show="!password_condition_alpha" style="font-size: 13px;" class="alert alert-danger" role="alert">Your Password Should Have At Least 1 Character</div>
+
+                        </div>
+
+                    </div>
+             
+                    <input type="submit" value="Set Passcode" class="btn btn-lg btn-info btn-block">
+
+                    
+                </form>
+            </div>
+
+		</div>
+
+
+
+	    
+	  
+
+	</div>
+
+
+	<!--start of admin part-->
+	<div class="container-fluid main-container" style="margin-top: 2%; margin-bottom: 20%;" ng-show="global.user.user_type=='admin'" ng-init="getallUser()">
+		
+	    <div class="col-md-3 sidebar">
+	        <ul class="nav nav-pills nav-stacked">
+	            <li class="active"><a href="#">Manage User</a></li>
+	            <li><a href="#">Manage Category</a></li>
+	            
+	        </ul>
+	    </div>
+	    <div class="col-md-9 content">
+	        <div class="panel panel-default">
+	            <div class="panel-heading">
+	                All User
+	            </div>
+	            <div class="panel-body">
+	               <table class="table table-hover">
+		               	<thead>
+			                <tr>
+			                  <th class="span4 sortable">
+			                    <span class="line"></span> First Name
+			                  </th>
+			                  <th class="span4 sortable">
+			                    <span class="line"></span> Last Name
+			                  </th>
+			                  <th class="span4 sortable">
+			                    <span class="line"></span> Email
+			                  </th>
+			                  <!-- <th class="span3 sortable">
+			                    <span class="line"></span>User Role
+			                  </th> -->
+			                  <th class="span4 sortable">
+			                    <span class="line"></span>Status
+			                  </th>
+			                  <th class="span4 sortable">
+			                    <span class="line"></span>Action
+			                  </th>
+
+			              	</tr>
+			               
+			            </thead>
+
+			            <tbody>
+
+			            	<tr ng-repeat="item in all_user" ng-show="item.user_type!='admin'">
+			            		<td>{{item.first_name}}</td>
+			            		<td>{{item.last_name}}</td>
+			            		<td>{{item.email}}</td>
+			            		<td ng-show="global.user.loginCount==0"><label class="label label-warning">Pending</label>
+			            		</td>
+			            		<td ng-show="global.user.loginCount>0"><label class="label label-success">Active</label>
+			            		</td>
+			            		<td>
+			            			<button class="btn btn-xs btn-primary" ng-click="resendActivationLink(item._id)">Resend Activation Link</button>
+			            			<button class="btn btn-xs btn-info" ng-click="viewUser(item._id)">View</button>
+			            			<button class="btn btn-xs btn-danger" ng-click="deleteUser(item._id)">Delete</button>
+			            		</td>
+			            	</tr>
+			            </tbody>
+
+					</table>
+	            </div>
+	        </div>
+	    </div>
+
+	    <!--start of view profile-->
+	    <div class="col-md-9 content pull-right" ng-show="view_user">
+	      
+            <header>
+                <div class="row">
+                    <div class="col-lg-5 col-md-4 col-sm-3 col-xs-12">
+                        <a href="#" class="profile-txtlogo">{{view_user.first_name}} {{view_user.last_name}} </a>
+                    </div>
+                    <div class="col-lg-7 col-md-8 col-sm-9 col-xs-12">
+                        <p class="date-info">
+                            <span><strong>Member Since {{view_user.joining_date | date:'longDate'}}</strong></span>
+                 
+                        </p>
+                    </div>
+                </div>
+            </header><!--end header-->
+            
+            
+            <section id="banner">
+                
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <ul class="bp-slider">
+                            <li>
+                                <img src="images/banner1.jpg" alt="banner" class="img-responsive" />
+                                
+                            </li>
+                        </ul>
+                    </div>
+                </div><!--end slider-->
+              
+                 
+            </section><!--end banner-->
+            
+        
+        </div>
+        <!--end of view profile-->
+	      
+	    
+	</div>	
+
+	<!--end of admin part-->
+</div>
+
