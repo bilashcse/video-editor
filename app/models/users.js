@@ -10,8 +10,19 @@ var mongoose = require('mongoose')
     //user for password generating
     emailConfirmed: {type: Boolean, default: false},
     user_name: String,
+    urlName:String,
     first_name: String,
     last_name: String,
+    country: String,
+    city: String,
+    place:String,
+    gender: String,
+    personalInfo:String,
+
+    fbUserName:String,
+    TwitterUserName:String,
+    instagramUsername:String,
+    DOB: Date,
     joining_date: {type: Date, default: Date.now},
     user_type: {type: String, default: 'general'}, //general or admin
     account_type: String, //paid or free
@@ -25,8 +36,8 @@ var mongoose = require('mongoose')
     facebook_refresh_token: String,
     profile_picture: String,
     cover_picture: String,
-    loc: []
-       
+
+
     
   })
 

@@ -1,2 +1,2 @@
-# Online-Video-Editor
-Online Video Editor with Node Js
+# meanschool
+Meanschool is node.js, angular.js, express &amp; mongodb based community

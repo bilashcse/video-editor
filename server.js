@@ -21,7 +21,7 @@ var db = mongoose.connect(config.db)
 
 var models_path = __dirname + '/app/models'
 fs.readdirSync(models_path).forEach(function (file) {
-	console.log(models_path+'/'+file);
+	// console.log(models_path+'/'+file);
   require(models_path+'/'+file)
 })
 
@@ -31,17 +31,17 @@ require('./config/passport')(passport, config,_)
 
 var app = express()
 , http = require("http").createServer(app)
-, io = require("socket.io").listen(http)
+, io = require("./io")//.listen(http)
 
 
 require('./config/express')(app,config,passport)
 require('./config/routes')(app,passport,auth,io)
 
 var port = process.env.PORT || 80
-http.listen(port)
+var listen = http.listen(port)
 io.set('log level', 2);
+io.attach(listen);
 
-
-console.log('Sift Content started on port '+port+" on mode: "+env);
+console.log('LootBot started on port '+port+" on mode: "+env);
 logger.init(app, passport, mongoose)
 exports = module.exports = app

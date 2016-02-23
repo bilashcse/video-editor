@@ -1,77 +1,123 @@
-/**
- * Module dependencies.
- */
-
 var mongoose = require('mongoose')
   , User = mongoose.model('User')
   , async = require('async')
-  , request = require('request');
-
+  , request = require('request')
+  , fs = require('fs')
+  , ffmpeg = require('fluent-ffmpeg');
 
 exports.render = function(req, res){
 	
 	var env = process.env.NODE_ENV || 'production';
 
-	User.findOne({'email':'admin@sift.com'}).exec(function(err,user){
-        if(user){
-        }
-        else{
-           var user=new User({'email' : 'admin@sift.com'});
-           	var pass="hello1234";
-           	user.first_name = "Admin";
-            user.setPassword(pass);
-            user.user_type="admin";
-            user.loginCount = 1;
-            user.save(function(err){
-            	if(err)
-            		console.log(err);
-            	else
-            		console.log("admin created");
-            })
-        }
-     })	
-	
-	if(req.user)
-	{
-		User.findOne({_id: req.user._id}).exec(function(err,user){
-			if(err || !user)
-			{
-				req.logout();
-				res.redirect('/?info=invalideUser');
-			}
-			else if(user)
-			{
+	res.render('index');
 
-				if(user.emailConfirmed == true){
-					console.log('ok');
-					res.redirect('/home');
-				}
-				else{
-					if(user.loginCount==1){
-						res.redirect('/home');
-					}
-					else{
-						req.logout();
-						res.redirect('/waitingConfirmation');
-					}
-				}
-			}
-		});
-	}
-	else
-	{
-		if(req.param('not_found')=='requiresLogin' && req.param('path'))
-			req.session.redirectUrl=req.param('path');
-		
-		res.render('index', {
-    		user: req.user? req.user : 'null',
-    		message: req.flash('error'),
-    		error: req.param('not_found'),
-    		path: req.param('path')
-
-  		})
-	}
-	
 
 } 
+
+exports.muteAudio = function(req,res){
+
+	console.log("Mute Audio");
+	
+
+	var url = 'public/edited/noaudio/output.mp4';
+    fs.exists(url, function(exists)
+	{
+	    if (exists)
+	    {
+	        fs.unlink(url,function(err,data){
+	            if(!err){
+	            	console.log("Existing File Deleted . . . ");
+	            }
+	        });
+	    }
+	});
+
+    ffmpeg('public/raw/test.mp4') //Input Video File
+    .output('public/edited/noaudio/output.mp4') // Output File
+    .noAudio().videoCodec('copy')
+    .on('end', function(err) {
+        if(!err)
+        {
+
+            console.log("Conversion Done");
+            res.send('Remove Audio is Done');
+
+        }
+
+    })
+    .on('error', function(err){
+        console.log('error: ', +err);
+
+    }).run();
+}
+
+
+exports.removeVideo = function(req,res){
+	console.log("Remove Video");
+	var url = 'public/edited/removevideo/output.mp3';
+    fs.exists(url, function(exists)
+	{
+	    if (exists)
+	    {
+	        fs.unlink(url,function(err,data){
+	            if(!err){
+	            	console.log("Existing File Deleted . . . ");
+	            }
+	        });
+	    }
+	});
+    ffmpeg('public/raw/test.mp4')  // Input Video File
+    .output('public/edited/removevideo/output.mp3') // Output  File
+    .on('end', function(err) {
+        if(!err)
+        {
+        	console.log("Remove video is done");
+            res.send('Remove Video is Done');
+
+        }
+
+    })
+    .on('error', function(err){
+        console.log('error: '+err);
+    }).run();
+
+}
+
+
+exports.cropVideo = function(req,res){
+	console.log("Cropping Video");
+	var url = 'public/edited/cropvideo/output.mp4';
+    fs.exists(url, function(exists)
+	{
+	    if (exists)
+	    {
+	        fs.unlink(url,function(err,data){
+	            if(!err){
+	            	console.log("Existing File Deleted . . . ");
+	            }
+	        });
+	    }
+	});
+
+	ffmpeg('public/raw/test.mp4')
+    .setStartTime(2)
+    .setDuration(3)
+    .output('public/edited/cropvideo/output.mp4')
+
+    .on('end', function(err) {   
+        if(!err)
+        {
+          console.log('conversion Done');
+
+
+        }                 
+
+    })
+    .on('error', function(err){
+        console.log('error: ', +err);
+
+    }).run();
+
+
+}
 

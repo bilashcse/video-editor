@@ -4,29 +4,19 @@ var path = require('path')
 
 module.exports = {
   development: {
-    db: 'mongodb://localhost/video_editor',
+    db: 'mongodb://127.0.0.1/lootbet',
     root: rootPath,
     app: {
-      name: 'video_editor'
+      name: 'lootbet'
     },
     facebook: {
-      clientID: "290578804422991",
-      clientSecret: "6dbc3aca2824a29d1bd1f38caf5cd9be",
-      callbackURL: "http://localhost/auth/facebook/callback"
+      clientID: "290549740971971",
+      clientSecret: "4b188657132eba3a6b391a7c6ceeffc6",
+      callbackURL: "http://airvuz.com/auth/facebook/callback"
     },
-    linkedIn: {
-      clientID: "test",
-      clientSecret: "test",
-      callbackURL: "http://localhost/auth/linkedin/callback"
-    },
-     google: {
-        "clientID": "test",
-        "clientSecret": "test",
-        "callbackURL": "http://localhost/auth/google/callback"
-    },
-    twitter: {
-     clientID: "test",
-     clientSecret: "test",
+     twitter: {
+     clientID: "NriwXWU7qTx47bsxlexZLg6aJ",
+     clientSecret: "Y65uFqPE2oT2xE9wMxbbPGXXkGmJlhrYSGMGYcQy7JsiUBC7hQ",
      callbackURL: "http://localhost/auth/twitter/callback"
    }
 
@@ -34,30 +24,21 @@ module.exports = {
    
   },
   production: {
-    db: 'mongodb://localhost/video_editor',
+    db: 'mongodb://127.0.0.1/lootbet',
     root: rootPath,
     app: {
-      name: 'video_editor'
+      name: 'lootbet'
     },
     facebook: {
-     clientID: "585301341523051",
-     clientSecret: "fb7c09f6a3bf0e8a5f33170cd969090f",
-     callbackURL: "http://ec2-52-10-141-239.us-west-2.compute.amazonaws.com/auth/facebook/callback"
+     clientID: "290549740971971",
+     clientSecret: "4b188657132eba3a6b391a7c6ceeffc6",
+     callbackURL: "http://airvuz.com/auth/facebook/callback"
+     //http://beta.airvuz.com/auth/facebook/callback
    },
-   linkedIn: {
-      clientID: "test",
-      clientSecret: "test",
-      callbackURL: "http://ec2-52-10-141-239.us-west-2.compute.amazonaws.com/auth/linkedin/callback"
-    },
-     google: {
-        "clientID": "test",
-        "clientSecret": "test",
-        "callbackURL": "http://ec2-52-10-141-239.us-west-2.compute.amazonaws.com/auth/google/callback"
-    },
-    twitter: {
-     clientID: "test",
-     clientSecret: "test",
-     callbackURL: "http://ec2-52-10-141-239.us-west-2.compute.amazonaws.com/auth/twitter/callback"
+     twitter: {
+     clientID: "NriwXWU7qTx47bsxlexZLg6aJ",
+     clientSecret: "Y65uFqPE2oT2xE9wMxbbPGXXkGmJlhrYSGMGYcQy7JsiUBC7hQ",
+     callbackURL: "http://localhost/auth/twitter/callback"
    }
     
   }
