@@ -1,2 +1,5 @@
-# meanschool
-Meanschool is node.js, angular.js, express &amp; mongodb based community
+# Online Video Editor
+
+
+Description : NodeJs, AngularJs & FFMPEG based web video editor.
+Editor : Md. Nazmul Hossain Bilash

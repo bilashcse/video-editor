@@ -42,6 +42,6 @@ var listen = http.listen(port)
 io.set('log level', 2);
 io.attach(listen);
 
-console.log('LootBot started on port '+port+" on mode: "+env);
+console.log('Video Editor started on port '+port+" on mode: "+env);
 logger.init(app, passport, mongoose)
 exports = module.exports = app
