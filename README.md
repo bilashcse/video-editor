@@ -4,9 +4,17 @@
 Description : NodeJs, AngularJs & FFMPEG based web video editor. <br>
 Editor : Md. Nazmul Hossain Bilash<br>
 
-Feature Implemented :
+# Feature Implemented :
 - Mute a Video
 - Remove Video & save Only audio.
+
+# Working on :
+- Cropping Video
+- Watermark
+- Effect
+- Add new sound
+- Add note
+
 
 # License
 
