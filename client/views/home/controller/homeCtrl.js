@@ -81,4 +81,27 @@ app.controller('homeCtrl', ['$scope', '$rootScope', '$http','$timeout',
 			})
        }
 
+       $scope.fade_in = function(){
+       		 $http({method: 'get', url: '/video/effect/fadein'})
+			.success(function(data){
+				alert(data)
+
+			})
+			.error(function(data){
+
+			})
+       }
+
+       $scope.fade_out = function(req,res){
+       		console.log("Fade Out");
+       		$http({method: 'get', url: '/video/effect/fadeout'})
+			.success(function(data){
+				alert(data)
+
+			})
+			.error(function(data){
+
+			})
+       }
+
 }]);

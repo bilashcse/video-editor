@@ -106,33 +106,79 @@ exports.videoThumbnail = function(req,res){
     });
 }
 
+exports.videoInformation = function(req,res){
+
+    console.log("Video MetaData Information");
+    var ffmpeg = require('fluent-ffmpeg'); 
+    
+    ffmpeg.ffprobe('public/raw/test.mp4', function(err, metadata) {
+       if(err){
+        console.log("MetaData not Found. "+err);
+       }
+       else{
+        console.log(metadata)
+       }
+    });
+
+}
+
 exports.videoText = function(req,res){
     console.log("Text Add");
     var ffmpeg = require('fluent-ffmpeg'); 
-    ffmpeg('public/raw/input.mp4')
-    .videoFilters({
-        filter: 'drawtext',
-        options: {
-            fontfile:'public/fonts/DIN-Light.ttf',
-            text: "Bilash & Lopa",
-            fontsize: 20,
-            fontcolor: '#ccc',
-            x: '(main_w/2-text_w/2)',
-            y: 50,
-            //shadowcolor: 'black',
-            //shadowx: 2,
-            // shadowy: 2
-        }
-    })
-    .output('public/xxx.mp4')
+    // ffmpeg('public/raw/input.mp4')
+    // .audioCodec('libmp3lame') // Audio Codec
+    // .videoCodec('libx264')  // Video Codec
+    // .videoFilters({
+    //     filter: 'drawtext',
+    //     options: {
+    //         fontfile:'public/fonts/DIN-Light.ttf',
+    //         text: "Bilash & Lopa",
+    //         fontsize: 20,
+    //         fontcolor: '#ccc',
+    //         x: '(main_w/2-text_w/2)',
+    //         y: 50,
+    //         //shadowcolor: 'black',
+    //         //shadowx: 2,
+    //         // shadowy: 2
+    //     }
+    // })
+    // .output('public/edited/text/output.mp4')
 
-    .on('end', function() {
-        console.log("Done")
+    // .on('end', function() {
+    //     console.log("Done")
+
+    // })
+    // .on('error', function(err){
+    //     console.log('error: ', +err);
+     
+    // }).run();
+
+
+
+    ffmpeg('public/raw/input.mp4') //Input Video File
+    .output('public/edited/text/output.mp4') // Output File
+    .videoFilters({ 
+        filter: 'drawtext',
+        options: { 
+        fontfile: 'Lucida Grande.ttf',
+         text: 'THIS IS TEXT', /* etc. */ 
+        } 
+    })
+    .audioCodec('libmp3lame') // Audio Codec
+    .videoCodec('libx264')  
+    .on('end', function(err) {
+        if(!err)
+        {
+
+            console.log("Text Add Done");
+            //res.send('Video Cropping Done');
+
+        }
 
     })
     .on('error', function(err){
         console.log('error: ', +err);
-        //callback(err);
+
     }).run();
 
 }
@@ -188,19 +234,64 @@ exports.watermark = function(req,res){
 
 }
 
-exports.videoInformation = function(req,res){
+exports.videoFadein = function(req,res){
 
-    console.log("Video MetaData Information");
+    console.log("Video Fade In");
     var ffmpeg = require('fluent-ffmpeg'); 
-    
-    ffmpeg.ffprobe('public/raw/test.mp4', function(err, metadata) {
-       if(err){
-        console.log("MetaData not Found. "+err);
-       }
-       else{
-        console.log(metadata)
-       }
-    });
 
+        ffmpeg('public/raw/input.mp4')
+        .audioCodec('libmp3lame') // Audio Codec
+        .videoCodec('libx264')
+        .videoFilters('fade=in:0:200')
+        .output('public/edited/fadein/output.mp4')
+
+        .on('end', function(err) {
+            if(!err)
+            {
+                console.log('Effect Done');
+                res.send("Successfull");
+                
+            }
+
+        })
+        .on('progress', function(data){
+            console.log(data.percent);
+
+        })
+        .on('error', function(err){
+            console.log('error: '+err);
+            //callback(err);
+        }).run();
 }
+
+exports.videoFadeout = function(req,res){
+    console.log("Video Fade Out");
+    var ffmpeg = require('fluent-ffmpeg'); 
+
+        ffmpeg('public/raw/input.mp4')
+        .audioCodec('libmp3lame') // Audio Codec
+        .videoCodec('libx264')
+        .videoFilters('fade=out:70:10')
+        .output('public/edited/fadeout/output.mp4')
+
+        .on('end', function(err) {
+            if(!err)
+            {
+                console.log('Effect Done');
+                res.send("Successfull");
+                
+            }
+
+        })
+        .on('progress', function(data){
+            console.log(data.percent);
+
+        })
+        .on('error', function(err){
+            console.log('error: '+err);
+            //callback(err);
+        }).run();
+}
+
+
 
