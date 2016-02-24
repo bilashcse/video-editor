@@ -2,8 +2,7 @@ var mongoose = require('mongoose')
   , User = mongoose.model('User')
   , async = require('async')
   , request = require('request')
-  , fs = require('fs')
-  , ffmpeg = require('fluent-ffmpeg');
+  , fs = require('fs');
 
 exports.render = function(req, res){
 	
@@ -17,7 +16,7 @@ exports.render = function(req, res){
 exports.muteAudio = function(req,res){
 
 	console.log("Mute Audio");
-	
+    var ffmpeg = require('fluent-ffmpeg');	
 
 	var url = 'public/edited/noaudio/output.mp4';
     fs.exists(url, function(exists)
@@ -54,6 +53,8 @@ exports.muteAudio = function(req,res){
 
 exports.removeVideo = function(req,res){
 	console.log("Remove Video");
+
+    var ffmpeg = require('fluent-ffmpeg'); 
 	var url = 'public/edited/removevideo/output.mp3';
     fs.exists(url, function(exists)
 	{
@@ -84,25 +85,38 @@ exports.removeVideo = function(req,res){
 }
 
 
+exports.videoThumbnail = function(req,res){
+    console.log("Thumbnail");
+    var ffmpeg = require('fluent-ffmpeg'); 
+    var probe = require('node-ffprobe');
+
+    probe('public/raw/test.mp4', function(err, probeData) 
+    {
+
+        var proc = new ffmpeg('public/raw/test.mp4');
+
+        proc.screenshots({
+            timestamps: ['50%','80%'],
+            folder: 'public/edited/thumbnail/output',
+            size: '392x220'
+        }).on('end', function() {
+           console.log('Screenshots taken');
+        });
+
+    });
+}
+
+
+
+
 exports.cropVideo = function(req,res){
 	console.log("Cropping Video");
-	var url = 'public/edited/cropvideo/output.mp4';
-    fs.exists(url, function(exists)
-	{
-	    if (exists)
-	    {
-	        fs.unlink(url,function(err,data){
-	            if(!err){
-	            	console.log("Existing File Deleted . . . ");
-	            }
-	        });
-	    }
-	});
 
-	ffmpeg('public/raw/test.mp4')
-    .setStartTime(2)
-    .setDuration(3)
-    .output('public/edited/cropvideo/output.mp4')
+    var ffmpeg = require('fluent-ffmpeg');
+    ffmpeg('public/raw/test.mp4')
+    .setStartTime(03)
+    .setDuration(10)
+    .output('public/output.mp4')
 
     .on('end', function(err) {   
         if(!err)
@@ -118,6 +132,30 @@ exports.cropVideo = function(req,res){
 
     }).run();
 
+
+}
+
+
+
+
+exports.watermark = function(req,res){
+    console.log("Watermark");
+
+}
+
+exports.videoInformation = function(req,res){
+
+    console.log("Video MetaData Information");
+    var ffmpeg = require('fluent-ffmpeg'); 
+    
+    ffmpeg.ffprobe('public/raw/test.mp4', function(err, metadata) {
+       if(err){
+        console.log("MetaData not Found. "+err);
+       }
+       else{
+        console.log(metadata)
+       }
+    });
 
 }
 

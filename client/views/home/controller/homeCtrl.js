@@ -37,5 +37,37 @@ app.controller('homeCtrl', ['$scope', '$rootScope', '$http','$timeout',
 
 			})
        }
+       $scope.watermark = function(){
+       		$http({method: 'get', url: '/video/watermark'})
+			.success(function(data){
+				alert(data)
+
+			})
+			.error(function(data){
+
+			})
+       }
+
+       $scope.video_info = function(){
+       		$http({method: 'get', url: '/video/information'})
+			.success(function(data){
+				alert(data)
+
+			})
+			.error(function(data){
+
+			})
+       }
+
+       $scope.video_thumbnail = function(){
+       		$http({method: 'get', url: '/video/thumbnail'})
+			.success(function(data){
+				alert(data)
+
+			})
+			.error(function(data){
+
+			})
+       }
 
 }]);

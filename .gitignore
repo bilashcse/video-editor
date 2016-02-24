@@ -1,2 +1,41 @@
+# --------------------
+# OSX Files
+# --------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+# --------------------
+# IntelliJ Files
+# --------------------
+*.iml
+*.ipr
+*.iws
+.idea/
+**/.idea/workspace.xml
+**/.idea/tasks.xml
+.idea/*.iml
+.idea/workspace.xml
+.idea/modules.xml
+# --------------------
+# Node Files
+# --------------------
+.nodemonignore
+npm-debug.log
 node_modules/
 
+# --------------------
+# vim Files
+# --------------------
+*.swp
+
+# --------------------
+# User defined Files
+# --------------------
+*.mp3
+*.mp4
+fabfile.pyc

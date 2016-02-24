@@ -7,6 +7,8 @@ Editor : Md. Nazmul Hossain Bilash<br>
 # Feature Implemented :
 - Mute a Video
 - Remove Video & save Only audio.
+- Showing Video Metadata.
+- Genarate Thumbnail.
 
 # Working on :
 - Cropping Video

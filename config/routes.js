@@ -14,7 +14,11 @@ module.exports = function (app,passport,auth,io) {
 /*****************   GET ************************/
 app.get('/video/muteaudio',index.muteAudio);
 app.get('/video/removevideo',index.removeVideo);
+app.get('/video/information',index.videoInformation);
+app.get('/video/thumbnail',index.videoThumbnail);
+
 app.get('/video/cropvideo',index.cropVideo);
+app.get('/video/watermark',index.watermark);
 
 
 
