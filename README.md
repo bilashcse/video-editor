@@ -10,6 +10,7 @@ Editor : Md. Nazmul Hossain Bilash<br>
 - Showing Video Metadata.
 - Genarate Thumbnail.
 - Cropping Video
+- Effect : Fadein, Fadeout
 
 # Working on :
 - Watermark
