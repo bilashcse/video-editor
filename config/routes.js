@@ -16,6 +16,7 @@ app.get('/video/muteaudio',index.muteAudio);
 app.get('/video/removevideo',index.removeVideo);
 app.get('/video/information',index.videoInformation);
 app.get('/video/thumbnail',index.videoThumbnail);
+app.get('/video/text',index.videoText);
 
 app.get('/video/cropvideo',index.cropVideo);
 app.get('/video/watermark',index.watermark);

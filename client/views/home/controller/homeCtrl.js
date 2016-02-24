@@ -70,4 +70,15 @@ app.controller('homeCtrl', ['$scope', '$rootScope', '$http','$timeout',
 			})
        }
 
+       $scope.video_text = function(){
+       		$http({method: 'get', url: '/video/text'})
+			.success(function(data){
+				alert(data)
+
+			})
+			.error(function(data){
+
+			})
+       }
+
 }]);

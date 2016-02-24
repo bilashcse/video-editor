@@ -9,9 +9,9 @@ Editor : Md. Nazmul Hossain Bilash<br>
 - Remove Video & save Only audio.
 - Showing Video Metadata.
 - Genarate Thumbnail.
+- Cropping Video
 
 # Working on :
-- Cropping Video
 - Watermark
 - Effect
 - Add new sound

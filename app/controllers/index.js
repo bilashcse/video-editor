@@ -106,33 +106,78 @@ exports.videoThumbnail = function(req,res){
     });
 }
 
+exports.videoText = function(req,res){
+    console.log("Text Add");
+    var ffmpeg = require('fluent-ffmpeg'); 
+    ffmpeg('public/raw/input.mp4')
+    .videoFilters({
+        filter: 'drawtext',
+        options: {
+            fontfile:'public/fonts/DIN-Light.ttf',
+            text: "Bilash & Lopa",
+            fontsize: 20,
+            fontcolor: '#ccc',
+            x: '(main_w/2-text_w/2)',
+            y: 50,
+            //shadowcolor: 'black',
+            //shadowx: 2,
+            // shadowy: 2
+        }
+    })
+    .output('public/xxx.mp4')
+
+    .on('end', function() {
+        console.log("Done")
+
+    })
+    .on('error', function(err){
+        console.log('error: ', +err);
+        //callback(err);
+    }).run();
+
+}
+
 
 
 
 exports.cropVideo = function(req,res){
 	console.log("Cropping Video");
 
-    var ffmpeg = require('fluent-ffmpeg');
-    ffmpeg('public/raw/test.mp4')
-    .setStartTime(03)
-    .setDuration(10)
-    .output('public/output.mp4')
+    var ffmpeg = require('fluent-ffmpeg');  
 
-    .on('end', function(err) {   
+    var url = 'public/edited/cropvideo/output.mp4';
+    fs.exists(url, function(exists)
+    {
+        if (exists)
+        {
+            fs.unlink(url,function(err,data){
+                if(!err){
+                    console.log("Existing File Deleted . . . ");
+                }
+            });
+        }
+    });
+
+    ffmpeg('public/raw/input.mp4') //Input Video File
+    .output('public/edited/cropvideo/output.mp4') // Output File
+    .audioCodec('libmp3lame') // Audio Codec
+    .videoCodec('libx264')  // Video Codec
+    .setStartTime(03) // Start Position
+    .setDuration(5) // Duration
+    .on('end', function(err) {
         if(!err)
         {
-          console.log('conversion Done');
 
+            console.log("Conversion Done");
+            res.send('Video Cropping Done');
 
-        }                 
+        }
 
     })
     .on('error', function(err){
         console.log('error: ', +err);
 
     }).run();
-
-
 }
 
 
