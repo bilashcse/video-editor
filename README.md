@@ -1,8 +1,8 @@
 # API based Online Video Editor
 
 
-Description : NodeJs, AngularJs & FFMPEG based web video editor. I have showing the backend logic for editing video. Actually when someone try to edit video using NodeJs, ffmpeg, he cant think how to start & how he can do it. So I have implemented this video editor with very simple logic with ffmpeg. All resource are together here & anybody can start from here. If someone analysis these codes, he can understand the basic for video editor<br>
-Editor : Md. Nazmul Hossain Bilash<br>
+NodeJs, AngularJs & FFMPEG based web video editor. I have showing the backend logic for editing video. Actually when someone try to edit video using NodeJs, ffmpeg, he cant think how to start & how he can do it. So I have implemented this video editor with very simple logic with ffmpeg. All resource are together here & anybody can start from here. If someone analysis these codes, he can understand the basic for video editor<br>
+
 
 # Feature Implemented :
 - Mute a Video
