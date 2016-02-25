@@ -104,4 +104,29 @@ app.controller('homeCtrl', ['$scope', '$rootScope', '$http','$timeout',
 			})
        }
 
+       $scope.blur = function(req,res){
+       		console.log("BLur");
+       		$http({method: 'get', url: '/video/effect/blur'})
+			.success(function(data){
+				alert(data)
+
+			})
+			.error(function(data){
+
+			})
+
+       }
+
+       $scope.sharpen = function(){
+       		console.log("Sharpen");
+       		$http({method: 'get', url: '/video/effect/sharpen'})
+			.success(function(data){
+				alert(data)
+
+			})
+			.error(function(data){
+
+			})
+       }
+
 }]);

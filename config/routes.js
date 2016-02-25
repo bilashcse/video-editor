@@ -18,6 +18,8 @@ app.get('/video/information',index.videoInformation);
 app.get('/video/thumbnail',index.videoThumbnail);
 app.get('/video/effect/fadein',index.videoFadein);
 app.get('/video/effect/fadeout',index.videoFadeout);
+app.get('/video/effect/blur',index.videoBlur);
+app.get('/video/effect/sharpen',index.videoSharpen);
 app.get('/video/cropvideo',index.cropVideo);
 
 app.get('/video/text',index.videoText);

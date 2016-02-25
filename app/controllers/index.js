@@ -160,7 +160,7 @@ exports.videoText = function(req,res){
     .videoFilters({ 
         filter: 'drawtext',
         options: { 
-          
+          fontfile: 'Lucida Grande.ttf',
           text: 'THIS IS TEXT', /* etc. */ 
         } 
     })
@@ -232,6 +232,42 @@ exports.cropVideo = function(req,res){
 exports.watermark = function(req,res){
     console.log("Watermark");
 
+    var ffmpeg = require('fluent-ffmpeg'); 
+                ffmpeg('public/raw/input.mp4')
+                    .audioCodec('libmp3lame') // Audio Codec
+                    .videoCodec('libx264') 
+                    .videoFilters({
+                        filter: 'drawtext',
+                        options: {
+                            fontfile:'public/fonts/DIN-Light.ttf',
+                            text: 'hghj jhj hjgj gj g ',
+                            // fontsize: req.body.font,
+                            // fontcolor: req.body.color,
+                            x: '(main_w/2-text_w/2)',
+                            y: 50,
+                            //shadowcolor: 'black',
+                            //shadowx: 2,
+                            // shadowy: 2
+                        }
+                    })
+                    .output('public/edited/text/test.mp4')
+
+                    .on('end', function(err) {
+                        if(!err)
+                        {
+                          console.log('Title Save');
+                            //res.send('videos/effect/test.mp4')
+
+                        }
+
+                    })
+                    .on('error', function(err){
+                        console.log('error: ', +err);
+                        //callback(err);
+                    }).run();
+
+
+
 }
 
 exports.videoFadein = function(req,res){
@@ -285,6 +321,67 @@ exports.videoFadeout = function(req,res){
         })
         .on('progress', function(data){
             console.log(data.percent);
+
+        })
+        .on('error', function(err){
+            console.log('error: '+err);
+            //callback(err);
+        }).run();
+}
+
+exports.videoBlur = function(req,res){
+    console.log("Video Blur");
+    var ffmpeg = require('fluent-ffmpeg'); 
+
+        ffmpeg('public/raw/input.mp4')
+        .audioCodec('libmp3lame') // Audio Codec
+        .videoCodec('libx264')
+        .videoFilters('unsharp=7:7:-2:7:7:-2')
+        .output('public/edited/blur/output.mp4')
+
+        .on('end', function(err) {
+            if(!err)
+            {
+                console.log('Effect Blur Done');
+                res.send("Successfull");
+                
+            }
+
+        })
+        .on('progress', function(data){
+            console.log(Math.floor(data.percent)+" %");
+
+        })
+        .on('error', function(err){
+            console.log('error: '+err);
+            //callback(err);
+        }).run();
+}
+
+
+exports.videoSharpen = function(req,res){
+
+
+        console.log("Video Sharpen");
+        var ffmpeg = require('fluent-ffmpeg'); 
+
+        ffmpeg('public/raw/input.mp4')
+        .audioCodec('libmp3lame') // Audio Codec
+        .videoCodec('libx264')
+        .videoFilters('unsharp=7:7:-2:7:7:-2')
+        .output('public/edited/sharpen/output.mp4')
+
+        .on('end', function(err) {
+            if(!err)
+            {
+                console.log('Effect Sharpen Done');
+                res.send("Successfull");
+                
+            }
+
+        })
+        .on('progress', function(data){
+            console.log(Math.floor(data.percent)+" %");
 
         })
         .on('error', function(err){
