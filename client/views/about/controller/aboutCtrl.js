@@ -1,6 +1,6 @@
 app.controller('aboutCtrl', ['$scope', '$rootScope', '$http','$timeout',
  function ($scope,$rootScope,$http,$timeout) {
 	
-       $scope.about = "About"
+       $scope.about = "Online Video Editor Features"
 
 }]);

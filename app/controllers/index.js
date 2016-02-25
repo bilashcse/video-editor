@@ -160,8 +160,8 @@ exports.videoText = function(req,res){
     .videoFilters({ 
         filter: 'drawtext',
         options: { 
-        fontfile: 'Lucida Grande.ttf',
-         text: 'THIS IS TEXT', /* etc. */ 
+          
+          text: 'THIS IS TEXT', /* etc. */ 
         } 
     })
     .audioCodec('libmp3lame') // Audio Codec
