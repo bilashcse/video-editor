@@ -18,7 +18,28 @@ NodeJs, AngularJs & FFMPEG based web video editor. I have showing the backend lo
 - Add new sound
 - Add Text
 
+# How ffmpeg, NodeJs works:
 
+- Mute Video :
+```javascript
+    ffmpeg('public/raw/test.mp4') //Input Video File
+    .output('public/edited/noaudio/output.mp4') // Output File
+    .noAudio().videoCodec('copy')
+    .on('end', function(err) {
+        if(!err)
+        {
+            console.log("Conversion Done");
+
+        }
+
+    });
+    .on('error', function(err){
+        console.log('error: ', +err);
+
+    }).run();
+
+
+```
 # Copyright
 
 Copyright (c) 2016 Nazmul Hossain
