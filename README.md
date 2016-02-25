@@ -20,7 +20,7 @@ NodeJs, AngularJs & FFMPEG based web video editor. I have showing the backend lo
 
 # How ffmpeg, NodeJs works:
 
-- Mute Video : To disable audio you can use noAudio() method.
+- Mute Video : To disable audio you can use noAudio( ) method.
 ```javascript
     ffmpeg('public/raw/test.mp4') //Input Video File
     .output('public/edited/noaudio/output.mp4') // Output File
@@ -29,7 +29,6 @@ NodeJs, AngularJs & FFMPEG based web video editor. I have showing the backend lo
         if(!err)
         {
             console.log("Conversion Done");
-
         }
 
     });
@@ -40,6 +39,23 @@ NodeJs, AngularJs & FFMPEG based web video editor. I have showing the backend lo
 
 
 ```
+- Remove Video & save Only audio : 
+```javascript
+    ffmpeg('public/raw/test.mp4')  // Input Video File
+    .output('public/edited/removevideo/output.mp3') // Output  File
+    .on('end', function(err) {
+        if(!err)
+        {
+        	console.log("Remove video is done");
+            res.send('Remove Video is Done');
+
+        }
+
+    })
+    .on('error', function(err){
+        console.log('error: '+err);
+    }).run();
+```  
 # Copyright
 
 Copyright (c) 2016 Nazmul Hossain
