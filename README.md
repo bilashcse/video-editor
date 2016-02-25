@@ -86,6 +86,31 @@ ffmpeg.ffprobe('public/raw/test.mp4', function(err, metadata) { // Input video F
 
     });
 ``` 
+
+- Cropping Video:
+```javascript
+    ffmpeg('public/raw/input.mp4') //Input Video File
+    .output('public/edited/cropvideo/output.mp4') // Output File
+    .audioCodec('libmp3lame') // Audio Codec
+    .videoCodec('libx264')  // Video Codec
+    .setStartTime(03) // Start Position
+    .setDuration(5) // Duration
+    .on('end', function(err) {
+        if(!err)
+        {
+
+            console.log("Conversion Done");
+            res.send('Video Cropping Done');
+
+        }
+
+    })
+    .on('error', function(err){
+        console.log('error: ', +err);
+
+    }).run();
+```
+
 # Copyright
 
 Copyright (c) 2016 Nazmul Hossain
