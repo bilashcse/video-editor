@@ -39,6 +39,7 @@ NodeJs, AngularJs & FFMPEG based web video editor. I have showing the backend lo
 
 
 ```
+
 - Remove Video & save Only audio : 
 ```javascript
     ffmpeg('public/raw/test.mp4')  // Input Video File
@@ -47,8 +48,6 @@ NodeJs, AngularJs & FFMPEG based web video editor. I have showing the backend lo
         if(!err)
         {
         	console.log("Remove video is done");
-            res.send('Remove Video is Done');
-
         }
 
     })
@@ -56,6 +55,37 @@ NodeJs, AngularJs & FFMPEG based web video editor. I have showing the backend lo
         console.log('error: '+err);
     }).run();
 ```  
+
+- Showing Video Metadata:
+```javascript
+ffmpeg.ffprobe('public/raw/test.mp4', function(err, metadata) { // Input video File
+   if(err){
+    console.log("MetaData not Found. "+err);
+   }
+   else{
+    console.log(metadata)
+   }
+});
+``` 
+- Genarate Thumbnail:
+```javascript
+    var ffmpeg = require('fluent-ffmpeg'); 
+    var probe = require('node-ffprobe');
+    probe('public/raw/test.mp4', function(err, probeData) 
+    {
+
+        var proc = new ffmpeg('public/raw/test.mp4'); // Input File
+
+        proc.screenshots({
+            timestamps: ['50%','80%'],
+            folder: 'public/edited/thumbnail/output', // Thumbnail Location
+            size: '392x220'
+        }).on('end', function() {
+           console.log('Screenshots taken');
+        });
+
+    });
+``` 
 # Copyright
 
 Copyright (c) 2016 Nazmul Hossain
