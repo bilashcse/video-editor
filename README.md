@@ -20,7 +20,7 @@ NodeJs, AngularJs & FFMPEG based web video editor. I have showing the backend lo
 
 # How ffmpeg, NodeJs works:
 
-- Mute Video : To disable audio you can use noAudio( ) method.
+## Mute Video : To disable audio you can use noAudio( ) method.
 ```javascript
     ffmpeg('public/raw/test.mp4') //Input Video File
     .output('public/edited/noaudio/output.mp4') // Output File
@@ -40,7 +40,7 @@ NodeJs, AngularJs & FFMPEG based web video editor. I have showing the backend lo
 
 ```
 
-- Remove Video & save Only audio : 
+## Remove Video & save Only audio : 
 ```javascript
     ffmpeg('public/raw/test.mp4')  // Input Video File
     .output('public/edited/removevideo/output.mp3') // Output  File
@@ -56,7 +56,7 @@ NodeJs, AngularJs & FFMPEG based web video editor. I have showing the backend lo
     }).run();
 ```  
 
-- Showing Video Metadata:
+## Showing Video Metadata:
 ```javascript
 ffmpeg.ffprobe('public/raw/test.mp4', function(err, metadata) { // Input video File
    if(err){
@@ -67,7 +67,7 @@ ffmpeg.ffprobe('public/raw/test.mp4', function(err, metadata) { // Input video F
    }
 });
 ``` 
-- Genarate Thumbnail:
+## Genarate Thumbnail:
 ```javascript
     var ffmpeg = require('fluent-ffmpeg'); 
     var probe = require('node-ffprobe');
@@ -87,7 +87,7 @@ ffmpeg.ffprobe('public/raw/test.mp4', function(err, metadata) { // Input video F
     });
 ``` 
 
-- Cropping Video:
+## Cropping Video:
 ```javascript
     ffmpeg('public/raw/input.mp4') //Input Video File
     .output('public/edited/cropvideo/output.mp4') // Output File
