@@ -1,7 +1,7 @@
-# Online Video Editor
+# API based Online Video Editor
 
 
-Description : NodeJs, AngularJs & FFMPEG based web video editor. <br>
+Description : NodeJs, AngularJs & FFMPEG based web video editor. I have showing the backend logic for editing video. Actually when someone try to edit video using NodeJs, ffmpeg, he cant think how to start & how he can do it. So I have implemented this video editor with very simple logic with ffmpeg. All resource are together here & anybody can start from here. If someone analysis these codes, he can understand the basic for video editor<br>
 Editor : Md. Nazmul Hossain Bilash<br>
 
 # Feature Implemented :
@@ -10,13 +10,13 @@ Editor : Md. Nazmul Hossain Bilash<br>
 - Showing Video Metadata.
 - Genarate Thumbnail.
 - Cropping Video
-- Effect : Fadein, Fadeout,Blu.
+- Effect : Fadein, Fadeout,Blur, Sharpen.
 
 # Working on :
 - Watermark
 - More Video Effects
 - Add new sound
-- Add note
+- Add Text
 
 
 # Copyright
