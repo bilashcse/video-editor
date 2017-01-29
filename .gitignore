@@ -33,9 +33,3 @@ node_modules/
 # --------------------
 *.swp
 
-# --------------------
-# User defined Files
-# --------------------
-*.mp3
-*.mp4
-fabfile.pyc
