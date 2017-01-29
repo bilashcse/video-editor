@@ -18,6 +18,38 @@ NodeJs, AngularJs & FFMPEG based web video editor. I have showing the backend lo
 - Add new sound
 - Add Text
 
+## Configure mechine:
+```javascript
+1. SSH into your instance and become root
+sudo su -
+
+2. Go to the the /usr/local/bin directory
+cd /usr/local/bin
+
+3. Inside the /usr/local/bin directory, create an "ffmpeg" directory
+mkdir ffmpeg
+
+4. Go into the new directory
+cd ffmpeg
+
+5. Go to static build directory at http://ffmpeg.gusari.org/static/64bit/ and pick the 
+latest version of FFMPEG - as of this writing, it was ffmpeg.static.64bit.2014-02-16.tar.gz
+wget http://ffmpeg.gusari.org/static/64bit/ffmpeg.static.64bit.2014-02-16.tar.gz
+
+6. The file should now be in /usr/local/bin/ffmpeg. Untar it...
+tar -xzf ffmpeg.static.64bit.2014-02-16.tar.gz
+
+5. Run it and check what the latest version is 
+./ffmpeg -version
+6. If you want to be able to execute FFMPEG from any directory, simply create a symlink into /usr/bin like this:
+ln -s /usr/local/bin/ffmpeg/ffmpeg /usr/bin/ffmpeg
+ln -s /usr/local/bin/ffmpeg/ffprobe /usr/bin/ffprobe
+
+The first part (/usr/local/bin/ffmpeg/ffmpeg) is where the file is located after I untarred 
+the file. The second part (/usr/bin/ffmpeg) is where we want the symlink to go
+
+```
+
 # How ffmpeg, NodeJs works:
 
 ## Mute Video : To disable audio you can use noAudio( ) method.
