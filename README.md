@@ -18,7 +18,7 @@ NodeJs, AngularJs & FFMPEG based web video editor. I have showing the backend lo
 - Add new sound
 - Add Text
 
-## Configure mechine:
+## Configure mechine: ( Linux )
 ```javascript
 1. SSH into your instance and become root
 sudo su -
@@ -48,6 +48,12 @@ ln -s /usr/local/bin/ffmpeg/ffprobe /usr/bin/ffprobe
 The first part (/usr/local/bin/ffmpeg/ffmpeg) is where the file is located after I untarred 
 the file. The second part (/usr/bin/ffmpeg) is where we want the symlink to go
 
+```
+
+## Configure mechine: ( Mac )
+```javascript
+$ brew install ffmpeg --force
+$ brew link ffmpeg
 ```
 
 # How ffmpeg, NodeJs works:
