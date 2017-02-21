@@ -16,17 +16,8 @@ module.exports = function (app) {
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 
-
-
-router.get('/', function(req,res){
-	console.log("<<<-----------------  Online video editor  ----------------->>>>");
-});
-
-
-
+/* worked */
 router.get('/mute-audio',function(req,res){
-	console.log("Mute Audio");
-	// var ffmpeg = require('fluent-ffmpeg');	
 
 	var url = 'videos/output.mp4';
 	fs.exists(url, function(exists)
@@ -61,11 +52,8 @@ router.get('/mute-audio',function(req,res){
     }).run();
 });
 
-
+/* worked */
 router.get('/remove-video',function(req,res){
-	console.log("Remove Video");
-
-	// var ffmpeg = require('fluent-ffmpeg'); 
 	var url = 'videos/output.mp3';
 	fs.exists(url, function(exists)
 	{
@@ -95,10 +83,8 @@ router.get('/remove-video',function(req,res){
 
 });
 
+/* Done */
 router.get('/thumbnail',function(req,res){
-	console.log("Thumbnail");
-	// var ffmpeg = require('fluent-ffmpeg'); 
-	//var probe = require('node-ffprobe');
 
 	probe('videos/input.mp4', function(err, probeData) 
 	{
@@ -111,6 +97,7 @@ router.get('/thumbnail',function(req,res){
 			size: '392x220'
 		}).on('end', function() {
 			console.log('Screenshots taken');
+            res.send('Done Thumbnail');
 		});
 
 	});
@@ -119,10 +106,6 @@ router.get('/thumbnail',function(req,res){
 
 /* ----- Done -----*/
 router.get('/video-info',function(req,res){
-
-	console.log("Video MetaData Information");
-	//var ffmpeg = require('fluent-ffmpeg'); 
-
 	ffmpeg.ffprobe('videos/input.mp4', function(err, metadata) {
 		if(err){
 			console.log("MetaData not Found. "+err);
@@ -131,78 +114,12 @@ router.get('/video-info',function(req,res){
 			res.send(metadata);
 		}
 	});
-
 });
 
-router.get('/video-subtitle',function(req,res){
-	console.log("Text Add");
-	//var ffmpeg = require('fluent-ffmpeg'); 
-    // ffmpeg('public/raw/input.mp4')
-    // .audioCodec('libmp3lame') // Audio Codec
-    // .videoCodec('libx264')  // Video Codec
-    // .videoFilters({
-    //     filter: 'drawtext',
-    //     options: {
-    //         fontfile:'public/fonts/DIN-Light.ttf',
-    //         text: "Bilash & Lopa",
-    //         fontsize: 20,
-    //         fontcolor: '#ccc',
-    //         x: '(main_w/2-text_w/2)',
-    //         y: 50,
-    //         //shadowcolor: 'black',
-    //         //shadowx: 2,
-    //         // shadowy: 2
-    //     }
-    // })
-    // .output('public/edited/text/output.mp4')
-
-    // .on('end', function() {
-    //     console.log("Done")
-
-    // })
-    // .on('error', function(err){
-    //     console.log('error: ', +err);
-
-    // }).run();
-
-
-
-    ffmpeg('public/raw/input.mp4') //Input Video File
-    .output('public/edited/text/output.mp4') // Output File
-    .videoFilters({ 
-    	filter: 'drawtext',
-    	options: { 
-    		fontfile: 'Lucida Grande.ttf',
-    		text: 'THIS IS TEXT', /* etc. */ 
-    	} 
-    })
-    .audioCodec('libmp3lame') // Audio Codec
-    .videoCodec('libx264')  
-    .on('end', function(err) {
-    	if(!err)
-    	{
-
-    		console.log("Text Add Done");
-            //res.send('Video Cropping Done');
-
-        }
-
-    })
-    .on('error', function(err){
-    	console.log('error: ', +err);
-
-    }).run();
-
-});
-
-
-
+/* Done */
 router.get('/video-crop',function(req,res){
-	console.log("Cropping Video");
-
-	//var ffmpeg = require('fluent-ffmpeg');  
-
-	var url = 'public/edited/cropvideo/output.mp4';
+ 
+	var url = 'videos/output.mp4';
 	fs.exists(url, function(exists)
 	{
 		if (exists)
@@ -215,8 +132,8 @@ router.get('/video-crop',function(req,res){
 		}
 	});
 
-    ffmpeg('public/raw/input.mp4') //Input Video File
-    .output('public/edited/cropvideo/output.mp4') // Output File
+    ffmpeg('videos/input.mp4') //Input Video File
+    .output('videos/output.mp4') // Output File
     .audioCodec('libmp3lame') // Audio Codec
     .videoCodec('libx264')  // Video Codec
     .setStartTime(03) // Start Position
@@ -237,70 +154,18 @@ router.get('/video-crop',function(req,res){
     }).run();
 });
 
-
-
-router.get('/watermark',function(req,res){
-
-	console.log("Watermark");
-
-	//var ffmpeg = require('fluent-ffmpeg'); 
-	ffmpeg('public/raw/input.mp4')
-                    .audioCodec('libmp3lame') // Audio Codec
-                    .videoCodec('libx264') 
-                    .videoFilters({
-                    	filter: 'drawtext',
-                    	options: {
-                    		fontfile:'public/fonts/DIN-Light.ttf',
-                    		text: 'hghj jhj hjgj gj g ',
-                            // fontsize: req.body.font,
-                            // fontcolor: req.body.color,
-                            x: '(main_w/2-text_w/2)',
-                            y: 50,
-                            //shadowcolor: 'black',
-                            //shadowx: 2,
-                            // shadowy: 2
-                        }
-                    })
-                    .output('public/edited/text/test.mp4')
-
-                    .on('end', function(err) {
-                    	if(!err)
-                    	{
-                    		console.log('Title Save');
-                            //res.send('videos/effect/test.mp4')
-
-                        }
-
-                    })
-                    .on('error', function(err){
-                    	console.log('error: ', +err);
-                        //callback(err);
-                    }).run();
-
-
-
-                });
-
-
+/* Done */
 router.get('/effect-fadein',function(req,res){
 
-	console.log("Video Fade In");
-	//var ffmpeg = require('fluent-ffmpeg'); 
-
-	ffmpeg('public/raw/input.mp4')
+	ffmpeg('videos/input.mp4')
         .audioCodec('libmp3lame') // Audio Codec
         .videoCodec('libx264')
         .videoFilters('fade=in:0:200')
-        .output('public/edited/fadein/output.mp4')
+        .output('videos/fadein.mp4')
 
         .on('end', function(err) {
         	if(!err)
-        	{
-        		console.log('Effect Done');
         		res.send("Successfull");
-
-        	}
-
         })
         .on('progress', function(data){
         	console.log(data.percent);
@@ -308,58 +173,39 @@ router.get('/effect-fadein',function(req,res){
         })
         .on('error', function(err){
         	console.log('error: '+err);
-            //callback(err);
         }).run();
     });
 
+/* Done */
 router.get('/effect-fadeout',function(req,res){
 
-	console.log("Video Fade Out");
-	//var ffmpeg = require('fluent-ffmpeg'); 
-
-	ffmpeg('public/raw/input.mp4')
+	ffmpeg('videos/input.mp4')
         .audioCodec('libmp3lame') // Audio Codec
         .videoCodec('libx264')
         .videoFilters('fade=out:70:10')
-        .output('public/edited/fadeout/output.mp4')
+        .output('videos/fadeout.mp4')
 
         .on('end', function(err) {
         	if(!err)
-        	{
-        		console.log('Effect Done');
         		res.send("Successfull");
-
-        	}
-
-        })
-        .on('progress', function(data){
-        	console.log(data.percent);
-
         })
         .on('error', function(err){
         	console.log('error: '+err);
-            //callback(err);
         }).run();
     });
 
+/* Done */
 router.get('/effect-blur',function(req,res){
-	console.log("Video Blur");
-	//var ffmpeg = require('fluent-ffmpeg'); 
 
-	ffmpeg('public/raw/input.mp4')
+	ffmpeg('videos/input.mp4')
         .audioCodec('libmp3lame') // Audio Codec
         .videoCodec('libx264')
         .videoFilters('unsharp=7:7:-2:7:7:-2')
-        .output('public/edited/blur/output.mp4')
+        .output('videos/blur.mp4')
 
         .on('end', function(err) {
         	if(!err)
-        	{
-        		console.log('Effect Blur Done');
         		res.send("Successfull");
-
-        	}
-
         })
         .on('progress', function(data){
         	console.log(Math.floor(data.percent)+" %");
@@ -367,36 +213,103 @@ router.get('/effect-blur',function(req,res){
         })
         .on('error', function(err){
         	console.log('error: '+err);
-            //callback(err);
         }).run();
     });
 
+/* Done */
 router.get('/effect-sharpen',function(req,res){
 
-	console.log("Video Sharpen");
-	//var ffmpeg = require('fluent-ffmpeg'); 
+	ffmpeg('videos/input.mp4')
+    .audioCodec('libmp3lame') // Audio Codec
+    .videoCodec('libx264')
+    .videoFilters('unsharp=7:7:-2:7:7:-2')
+    .output('videos/sharpen.mp4')
 
-	ffmpeg('public/raw/input.mp4')
+    .on('end', function(err) {
+    	if(!err)
+    		res.send("Successfull");
+    })
+    .on('progress', function(data){
+    	console.log(Math.floor(data.percent)+" %");
+
+    })
+    .on('error', function(err){
+    	console.log('error: '+err);
+        //callback(err);
+    }).run();
+});
+
+router.get('/video-subtitle',function(req,res){
+    console.log("Text Add");
+    
+    ffmpeg('videos/input.mp4')
+    .audioCodec('libmp3lame') // Audio Codec
+    .videoCodec('libx264')  // Video Codec
+    .videoFilters({
+        filter: 'drawtext',
+        options: {
+            fontfile:'public/fonts/DINLight.ttf',
+            text: "Bilash & Lopa",
+            fontsize: 20,
+            fontcolor: '#ccc',
+            x: '(main_w/2-text_w/2)',
+            y: 50,
+            shadowcolor: 'black',
+            shadowx: 2,
+            shadowy: 2
+        }
+    })
+    .output('videos/output.mp4')
+
+    .on('end', function() {
+        console.log("Done")
+
+    })
+    .on('error', function(err){
+        console.log('error: ', +err);
+
+    }).run();
+
+});
+
+router.get('/watermark',function(req,res){
+
+    console.log("Watermark");
+
+    //var ffmpeg = require('fluent-ffmpeg'); 
+    ffmpeg('videos/input.mp4')
         .audioCodec('libmp3lame') // Audio Codec
-        .videoCodec('libx264')
-        .videoFilters('unsharp=7:7:-2:7:7:-2')
-        .output('public/edited/sharpen/output.mp4')
+        .videoCodec('libx264') 
+        .videoFilters({
+            filter: 'drawtext',
+            options: {
+                fontfile:'public/fonts/DIN-Light.ttf',
+                text: 'hghj jhj hjgj gj g ',
+                // fontsize: req.body.font,
+                // fontcolor: req.body.color,
+                x: '(main_w/2-text_w/2)',
+                y: 50,
+                //shadowcolor: 'black',
+                //shadowx: 2,
+                // shadowy: 2
+            }
+        })
+        .output('videos/test.mp4')
 
         .on('end', function(err) {
-        	if(!err)
-        	{
-        		console.log('Effect Sharpen Done');
-        		res.send("Successfull");
+            if(!err)
+            {
+                console.log('Title Save');
+                //res.send('videos/effect/test.mp4')
 
-        	}
-
-        })
-        .on('progress', function(data){
-        	console.log(Math.floor(data.percent)+" %");
+            }
 
         })
         .on('error', function(err){
-        	console.log('error: '+err);
+            console.log('error: ', +err);
             //callback(err);
         }).run();
+
+
+
     });
