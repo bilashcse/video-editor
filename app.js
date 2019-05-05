@@ -3,7 +3,7 @@ var fs = require('fs');
 var http = require("http");
 var promise = require('bluebird');
 var mkdirp = promise.promisify(require('mkdirp'));
-var env = process.env.NODE_ENV || 'production';
+var env = process.env.NODE_ENV || 'development';
 var bodyParser = require('body-parser');
 
 

@@ -4,7 +4,7 @@
   "description": "Online video editor",
   "main": "app.js",
   "scripts": {
-    "test": "node app.js"
+    "start": "nodemon app.js"
   },
   "author": "Nazmul Hossain <bilashcse@gmail.com> (http://github.com/bilashcse)",
   "license": "MIT",
@@ -16,6 +16,7 @@
     "fs": "0.0.1-security",
     "mkdirp": "^0.5.1",
     "node-ffprobe": "^1.2.2",
+    "nodemon": "^1.18.11",
     "querystring": "^0.2.0",
     "url": "^0.11.0"
   }

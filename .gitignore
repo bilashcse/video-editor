@@ -21,6 +21,7 @@ Icon
 .idea/*.iml
 .idea/workspace.xml
 .idea/modules.xml
+.DS_Store
 # --------------------
 # Node Files
 # --------------------
@@ -32,4 +33,10 @@ node_modules/
 # vim Files
 # --------------------
 *.swp
+
+# --------------------
+# vim Files
+# --------------------
+*.mp3
+*.mp4
 
