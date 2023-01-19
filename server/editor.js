@@ -1,13 +1,13 @@
-var express = require('express');
-var promise = require("bluebird");
-var bodyParser = require('body-parser');
-var querystring = require('querystring');
-var ffmpeg = require('fluent-ffmpeg');
-var probe = require('node-ffprobe');
-var fs = require('fs');
-var url = require('url');
+const express = require('express');
+const promise = require("bluebird");
+const bodyParser = require('body-parser');
+const querystring = require('querystring');
+const ffmpeg = require('fluent-ffmpeg');
+const probe = require('node-ffprobe');
+const fs = require('fs');
+const url = require('url');
 
-var router = express.Router();
+const router = express.Router();
 
 module.exports = function (app) {
     app.use('/editor', router);
@@ -21,7 +21,7 @@ router.use(bodyParser.urlencoded({
 /* worked */
 router.get('/mute-audio', function (req, res) {
 
-    var url = 'videos/output.mp4';
+    const url = 'videos/output.mp4';
     fs.exists(url, function (exists) {
         if (exists) {
             fs.unlink(url, function (err, data) {
@@ -53,7 +53,7 @@ router.get('/mute-audio', function (req, res) {
 
 /* worked */
 router.get('/remove-video', function (req, res) {
-    var url = 'videos/output.mp3';
+    const url = 'videos/output.mp3';
     fs.exists(url, function (exists) {
         if (exists) {
             fs.unlink(url, function (err, data) {
@@ -84,7 +84,7 @@ router.get('/thumbnail', function (req, res) {
 
     probe('videos/input.mp4', function (err, probeData) {
 
-        var proc = new ffmpeg('videos/input.mp4');
+        const proc = new ffmpeg('videos/input.mp4');
 
         proc.screenshots({
             timestamps: ['50%', '80%'],
@@ -113,7 +113,7 @@ router.get('/video-info', function (req, res) {
 /* Done */
 router.get('/video-crop', function (req, res) {
 
-    var url = 'videos/output.mp4';
+    const url = 'videos/output.mp4';
     fs.exists(url, function (exists) {
         if (exists) {
             fs.unlink(url, function (err, data) {
@@ -276,7 +276,7 @@ router.get('/watermark', function (req, res) {
     } else {
         console.log("Not Found File");
     }
-    //var ffmpeg = require('fluent-ffmpeg'); 
+    //const ffmpeg = require('fluent-ffmpeg'); 
     ffmpeg(__dirname + 'videos/input.mp4')
     .videoFilters({
         filter: 'drawtext',
